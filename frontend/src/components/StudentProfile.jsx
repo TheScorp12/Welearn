@@ -10,7 +10,7 @@ const StudentProfile = ({ userDetails })=>{
     const [courses, setCourses] = useState([])
     console.log(userDetails);
     useEffect( () => {
-      fetch(`https://learnpedia-backend-ci.azurewebsites.net/api/enrolled/${JSON.parse(localStorage.getItem('user'))._id}`, {
+      fetch(`https://Welearn-backend-ci.azurewebsites.net/api/enrolled/${JSON.parse(localStorage.getItem('user'))._id}`, {
         method: 'get',
         headers: {
             Accept: "application/json",
@@ -115,7 +115,7 @@ const StudentProfile = ({ userDetails })=>{
 const mapStateToProps = state => {
     console.log(state);
     return {
-      userDetails: state.learnpedia
+      userDetails: state.Welearn
     }
   }
   

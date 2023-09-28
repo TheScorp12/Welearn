@@ -29,7 +29,7 @@ const LessonUpload = () => {
     }
 
     useEffect(() => {
-        fetch(`https://learnpedia-backend-ci.azurewebsites.net/api/courses/${user._id}`, {
+        fetch(`https://Welearn-backend-ci.azurewebsites.net/api/courses/${user._id}`, {
             method: 'GET',
             headers: {
                 Accept: "application/json",
@@ -53,7 +53,7 @@ const LessonUpload = () => {
 
     const onCourseChange = (event) => {
         let courseid = event.target.value;
-        fetch(`https://learnpedia-backend-ci.azurewebsites.net/api/module/${user._id}/${courseid}`, {
+        fetch(`https://Welearn-backend-ci.azurewebsites.net/api/module/${user._id}/${courseid}`, {
             method: 'GET',
             headers: {
                 Accept: "application/json",
@@ -115,7 +115,7 @@ const LessonUpload = () => {
         fd.append('moduleId', formDetails.moduleId);
         fd.append('video', file);
         fd.append('desc', formDetails.desc);
-        postData(`https://learnpedia-backend-ci.azurewebsites.net/api/lesson/${user._id}/${formDetails.courseId}`, fd)
+        postData(`https://Welearn-backend-ci.azurewebsites.net/api/lesson/${user._id}/${formDetails.courseId}`, fd)
             .then((data) => {
                 console.log(data); // JSON data parsed by `data.json()` call
                 if (data.error) {

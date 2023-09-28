@@ -51,7 +51,7 @@ const Help = (props) => {
         alert("Please login to ask a question")
         return
       }
-      postData(`https://learnpedia-backend-ci.azurewebsites.net/api/question/${JSON.parse(localStorage.getItem('user'))._id}`, formDetails)
+      postData(`https://Welearn-backend-ci.azurewebsites.net/api/question/${JSON.parse(localStorage.getItem('user'))._id}`, formDetails)
         .then((data) => {
           console.log(data); // JSON data parsed by `data.json()` call
           if (data.error) {

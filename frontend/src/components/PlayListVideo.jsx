@@ -16,7 +16,7 @@ const PlayListVideo = () => {
   const [originalRating, setOriginalRating] = useState(0);
   //get course details
   useEffect(() => {
-    fetch(`https://learnpedia-backend-ci.azurewebsites.net/api/course/${courseid}`, {
+    fetch(`https://Welearn-backend-ci.azurewebsites.net/api/course/${courseid}`, {
       method: 'get',
       headers: {
         Accept: "application/json",
@@ -42,7 +42,7 @@ const PlayListVideo = () => {
     if (userDetails == null || userDetails == undefined || course._id == undefined || lesson._id == undefined) {
       return
     }
-    fetch(`https://learnpedia-backend-ci.azurewebsites.net/api/lesson/${userDetails._id}/${course._id}/${lesson._id}`, {
+    fetch(`https://Welearn-backend-ci.azurewebsites.net/api/lesson/${userDetails._id}/${course._id}/${lesson._id}`, {
       method: 'get',
       headers: {
         Accept: "application/json",
@@ -68,7 +68,7 @@ const PlayListVideo = () => {
       rating: updatedRating,
       id: course._id,
     };
-    fetch("https://learnpedia-backend-ci.azurewebsites.net/api/update-rating", {
+    fetch("https://Welearn-backend-ci.azurewebsites.net/api/update-rating", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -92,7 +92,7 @@ const PlayListVideo = () => {
 
   const getLesson = (event) => {
     console.log(event.target.id);
-    fetch(`https://learnpedia-backend-ci.azurewebsites.net/api/lesson/${event.target.id}`, {
+    fetch(`https://Welearn-backend-ci.azurewebsites.net/api/lesson/${event.target.id}`, {
       method: 'get',
       headers: {
         Accept: "application/json",

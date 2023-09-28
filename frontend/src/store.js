@@ -1,9 +1,9 @@
 import { createStore, combineReducers } from "redux";
 
- import learnpedia from "./reducer/learnpedia";
+ import Welearn from "./reducer/Welearn";
 
  const rootReducer = combineReducers({
-    learnpedia,
+    Welearn,
  })
 
  const store = createStore(

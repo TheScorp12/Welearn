@@ -10,10 +10,10 @@ const Home = () => {
           <video className={classes.myVideo} src={BackImg} loop autoPlay muted >
           </video>
           <div className={classes.content}>
-            <h1>Learnpedia</h1>
+            <h1>Welearn</h1>
             <p>Welcome to the education domain</p>
             <a href="/signup" ><button className={classes.homeBtn}>Join for free</button></a>
-            <a href="/signup" ><button className={classes.homeBtn}>Try Learnpedia for business</button></a>
+            <a href="/signup" ><button className={classes.homeBtn}>Try Welearn for business</button></a>
           </div>
         </div>
       </div>

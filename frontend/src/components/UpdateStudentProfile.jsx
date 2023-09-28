@@ -69,7 +69,7 @@ async function postData(url = '', data ) {
       fd.append('profileImage', file);
     }
     console.log(fd.get('profileImage'));
-    postData(`https://learnpedia-backend-ci.azurewebsites.net/api/user/${JSON.parse(localStorage.getItem('user'))._id}`, fd)
+    postData(`https://Welearn-backend-ci.azurewebsites.net/api/user/${JSON.parse(localStorage.getItem('user'))._id}`, fd)
     setFormDetails({});
     navigate('/shome');
 }
@@ -82,7 +82,7 @@ async function postData(url = '', data ) {
   //     return false
   //   }
 
-  //   postData(`https://learnpedia-backend-ci.azurewebsites.net/api/user/${JSON.parse(localStorage.getItem('user'))._id}`, formDetails)
+  //   postData(`https://Welearn-backend-ci.azurewebsites.net/api/user/${JSON.parse(localStorage.getItem('user'))._id}`, formDetails)
   //   setFormDetails({});
   // }
 

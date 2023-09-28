@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import '../css/App.css';
 import Nav from './Nav';
 import { connect } from 'react-redux'
-import { signIn } from '../action/learnpedia'
+import { signIn } from '../action/Welearn'
 import { useEffect } from 'react';
 
 function App({signIn}) {

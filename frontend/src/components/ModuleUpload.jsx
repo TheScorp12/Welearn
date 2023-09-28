@@ -26,7 +26,7 @@ const ModuleUpload = () => {
 
     useEffect(() => {
         console.log(user._id);
-        fetch(`https://learnpedia-backend-ci.azurewebsites.net/api/courses/${user._id}`, {
+        fetch(`https://Welearn-backend-ci.azurewebsites.net/api/courses/${user._id}`, {
             method: 'GET',
             headers: {
                 Accept: "application/json",
@@ -71,7 +71,7 @@ const ModuleUpload = () => {
     const submitHandler = (event) => {
         event.preventDefault();
         console.log(formDetails);
-        postData(`https://learnpedia-backend-ci.azurewebsites.net/api/moduleupload/${user._id}`, formDetails)
+        postData(`https://Welearn-backend-ci.azurewebsites.net/api/moduleupload/${user._id}`, formDetails)
             .then((data) => {
                 console.log(data); // JSON data parsed by `data.json()` call
                 if (data.error) {

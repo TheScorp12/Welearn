@@ -9,7 +9,7 @@ const Admin = () => {
   const [courses, setCourses] = useState([])
 
   useEffect( () => {
-    fetch('https://learnpedia-backend-ci.azurewebsites.net/api/courses')
+    fetch('https://Welearn-backend-ci.azurewebsites.net/api/courses')
         .then((response) => response.json())
         .then((data) => {
           setCourses(data)

@@ -10,7 +10,7 @@ const Admin = () => {
   const [users, setUsers] = useState([])
 
   useEffect(() => {
-    fetch(`https://learnpedia-backend-ci.azurewebsites.net/api/users/${JSON.parse(localStorage.getItem('user'))._id}`, {
+    fetch(`https://Welearn-backend-ci.azurewebsites.net/api/users/${JSON.parse(localStorage.getItem('user'))._id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

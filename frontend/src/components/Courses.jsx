@@ -8,7 +8,7 @@ const Courses = ({userDetails}) => {
     const { query } = useParams();
     const [courses, setCourses] = useState([])
     useEffect( () => {
-        fetch('https://learnpedia-backend-ci.azurewebsites.net/api/courses')
+        fetch('https://Welearn-backend-ci.azurewebsites.net/api/courses')
             .then((response) => response.json())
             .then((data) => {
               setCourses(data)
@@ -17,7 +17,7 @@ const Courses = ({userDetails}) => {
     console.log(courses);
 
     const searchCourses = (query) => {
-      fetch(`https://learnpedia-backend-ci.azurewebsites.net/api/search?query=${query}`)
+      fetch(`https://Welearn-backend-ci.azurewebsites.net/api/search?query=${query}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -27,14 +27,14 @@ const Courses = ({userDetails}) => {
 
     useEffect( () => {
       if(query){
-        fetch(`https://learnpedia-backend-ci.azurewebsites.net/api/search?query=${query}`)
+        fetch(`https://Welearn-backend-ci.azurewebsites.net/api/search?query=${query}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
           setCourses(data)
         });
       } else {
-        fetch('https://learnpedia-backend-ci.azurewebsites.net/api/courses')
+        fetch('https://Welearn-backend-ci.azurewebsites.net/api/courses')
         .then((response) => response.json())
         .then((data) => {
           setCourses(data)
@@ -64,7 +64,7 @@ const Courses = ({userDetails}) => {
 const mapStateToProps = state => {
   console.log(state);
   return {
-    userDetails: state.learnpedia
+    userDetails: state.Welearn
 }
 }
 

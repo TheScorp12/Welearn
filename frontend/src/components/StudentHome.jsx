@@ -11,7 +11,7 @@ import Card from './Card'
 const StudentHome = ({ userDetails }) => {
   const [courses, setCourses] = useState([])
   useEffect( () => {
-    fetch('https://learnpedia-backend-ci.azurewebsites.net/api/courses')
+    fetch('https://Welearn-backend-ci.azurewebsites.net/api/courses')
         .then((response) => response.json())
         .then((data) => {
           setCourses(data)
@@ -24,7 +24,7 @@ const StudentHome = ({ userDetails }) => {
       {userDetails ? <div>
         <div className={`${classes.welcome} ${classes.typewriter}`}>
           <h3>Hi {userDetails.firstname}, </h3>
-          <h1>Welcome to Learnpedia!</h1>
+          <h1>Welcome to Welearn!</h1>
         </div>
         <div className={classes.continueLearning}>
           <span className={classes.left}>Continue Learning </span>
@@ -62,7 +62,7 @@ const StudentHome = ({ userDetails }) => {
 
 const mapStateToProps = state => {
   return {
-    userDetails: state.learnpedia
+    userDetails: state.Welearn
   }
 }
 

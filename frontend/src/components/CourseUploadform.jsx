@@ -45,7 +45,7 @@ const CourseUploadform = ({userDetails}) => {
       const submitHandler = (event) => {
         event.preventDefault();
         console.log(formDetails);
-        postData(`https://learnpedia-backend-ci.azurewebsites.net/api/courseupload/${userDetails._id}`, formDetails)
+        postData(`https://Welearn-backend-ci.azurewebsites.net/api/courseupload/${userDetails._id}`, formDetails)
           .then((data) => {
             console.log(data); // JSON data parsed by `data.json()` call
             if (data.error) {
@@ -111,7 +111,7 @@ const CourseUploadform = ({userDetails}) => {
 
 const mapStateToProps = state => {
     return {
-        userDetails: state.learnpedia
+        userDetails: state.Welearn
     }
 }
 

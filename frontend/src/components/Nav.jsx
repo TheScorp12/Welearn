@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import '../css/Nav.css';
 import { connect } from 'react-redux'
-import { signOut, signIn } from '../action/learnpedia'
+import { signOut, signIn } from '../action/Welearn'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -32,7 +32,7 @@ const Nav = ({ userDetails, signOut }) => {
                     <nav className={isSidebarOpen ? 'active' : ''} >
                         <div className="nav-bar">
                             <i className='bx bx-menu sidebarOpen' onClick={() => setIsSidebarOpen(prev => !prev)} ></i>
-                            <span className="logo navLogo"><a href="/">Learnpedia</a></span>
+                            <span className="logo navLogo"><a href="/">Welearn</a></span>
 
                             <div className="menu">
                                 <div className="logo-toggle">
@@ -98,7 +98,7 @@ const Nav = ({ userDetails, signOut }) => {
                     <nav className={isSidebarOpen ? 'active' : ''} >
                         <div className="nav-bar">
                             <i className='bx bx-menu sidebarOpen' onClick={() => setIsSidebarOpen(prev => !prev)} ></i>
-                            <span className="logo navLogo"><a href="/">Learnpedia</a></span>
+                            <span className="logo navLogo"><a href="/">Welearn</a></span>
 
                             <div className="menu">
                                 <div className="logo-toggle">
@@ -164,7 +164,7 @@ const Nav = ({ userDetails, signOut }) => {
 
 const mapStateToProps = state => {
     return {
-        userDetails: state.learnpedia
+        userDetails: state.Welearn
     }
 }
 

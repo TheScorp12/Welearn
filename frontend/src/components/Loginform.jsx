@@ -3,7 +3,7 @@ import Image from '../images/loginimg2.jpg'
 import '../css/Loginform.css'
 
 import { connect } from 'react-redux'
-import { signIn } from '../action/learnpedia'
+import { signIn } from '../action/Welearn'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -47,7 +47,7 @@ const Loginform = ({ signIn }) => {
       alert("enter email and password")
       return
     }
-    postData('https://learnpedia-backend-ci.azurewebsites.net/api/login', formDetails)
+    postData('https://Welearn-backend-ci.azurewebsites.net/api/login', formDetails)
       .then((data) => {
         if (data.user) {
           const userData = data.user

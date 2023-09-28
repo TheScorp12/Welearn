@@ -32,7 +32,7 @@ const Card = (props) => {
     const userDetails = JSON.parse(localStorage.getItem("user"));
     console.log(userDetails);
     postData(
-      `https://learnpedia-backend-ci.azurewebsites.net/api/enroll/${userDetails._id}/${courseId}`
+      `https://Welearn-backend-ci.azurewebsites.net/api/enroll/${userDetails._id}/${courseId}`
     )
       .then((data) => {
         console.log(data); // JSON data parsed by `data.json()` call
@@ -111,7 +111,7 @@ const Card = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    userDetails: state.learnpedia,
+    userDetails: state.Welearn,
   };
 };
 
