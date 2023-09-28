@@ -3,7 +3,7 @@
 // require("dotenv").config();
 //var fs = require('fs');
 import json from './createuser.json'
-const {ethers} = require("ethers")
+const {ethers, JsonRpcProvider} = require("ethers")
 const util = require('util');
 // var ethers = require('ethers')
 //const fsPromises = fs.promises;
@@ -37,7 +37,7 @@ async function createuser(address,firstname,lastname,email,usertype) {
     // const {PRIVATE_KEY} = process.env;
     const PRIVATE_KEY = '0237ff2ad0de9c13520b961f3f5eb834510c5e63d22922e1f1088b43bfa1e656';
     console.log(PRIVATE_KEY);
-    let provider = ethers.provider(`https://api.calibration.node.glif.io/rpc/v1`);
+    let provider = new ethers.providers.JsonRpcProvider(`https://api.calibration.node.glif.io/rpc/v1`);
     let signer = new ethers.Wallet(PRIVATE_KEY, provider);
     const usercontract = new ethers.Contract(DEPLOYED_CONTRACT_ADDRESS, abi, signer);
     let createuser = usercontract.connect(signer);
