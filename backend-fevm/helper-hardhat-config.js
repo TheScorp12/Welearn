@@ -7,7 +7,6 @@ const networkConfig = {
     },
     314159: {
         name: "calibrationnet",
-        tokensToBeMinted: 12000,
     },
     314: {
         name: "filecoinmainnet",

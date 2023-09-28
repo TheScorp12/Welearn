@@ -14,14 +14,17 @@ contract courses{
     }
     mapping (uint256 => courseinfo) public courseid; 
 
-    function addcourse(uint256 cid, address wallet, string memory courseurl, uint256 price) external {
+    function addcourse(uint256 cid, address wallet, uint256 price) external {
         courseid[cid].wallet = wallet;
-        courseid[cid].url.push(courseurl);
         courseid[cid].price = price;
     }
 
     function deletecourse(uint256 cid) external {
        delete courseid[cid];
+    }
+
+    function addlesson(uint256 cid, string memory lessonurl) external {
+        courseid[cid].url.push(lessonurl);
     }
 
     function changeprice(uint256 newprice, uint256 cid, address wallet) public returns (bool){

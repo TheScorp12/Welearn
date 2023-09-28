@@ -6,9 +6,9 @@ var ethers = require('ethers')
 const fsPromises = fs.promises;
 
 // The path to the contract ABI
-const ABI_FILE_PATH = 'artifacts/contracts/createuser.json';
+const ABI_FILE_PATH = 'artifacts/contracts/createuser.sol/createuser.json';
 // The address from the deployed smart contract
-const DEPLOYED_CONTRACT_ADDRESS = '0x9E1B230f5C1f10E8593cA913b92a314a6aB3af28';
+const DEPLOYED_CONTRACT_ADDRESS = '0x904abFd9D5042b2908f1E5F1cE76a77c7d0394A2';
 
 // load ABI from build artifacts
 async function getAbi(){
@@ -18,7 +18,7 @@ async function getAbi(){
   return abi;
 }
 
-async function main() {
+async function createuser(address,firstname,lastname,email,usertype) {
     let provider = ethers.getDefaultProvider(`https://api.calibration.node.glif.io/rpc/v1`);
     const abi = await getAbi()
 
@@ -35,15 +35,10 @@ async function main() {
     let signer = new ethers.Wallet(PRIVATE_KEY, provider);
     const usercontract = new ethers.Contract(DEPLOYED_CONTRACT_ADDRESS, abi, signer);
     //let tx = await usercontract.setGreeting('Updated greeting');
-    let tx = await usercontract.saveuser(address,firstname,lastname,email,usertype,signature);
+    let tx = await usercontract.saveuser(address,firstname,lastname,email,usertype);
     await tx.wait();
-    const updated_greeting = await usercontract.greet();
-    console.log(updated_greeting);
+    const getuser = await usercontract.wallets(address);
+    console.log(getuser);
 }
 
-main()
-    .then(() => process.exit(0))
-    .catch((error) => {
-        console.error(error);
-        process.exit(1);
-    });
+module.exports = createuser;

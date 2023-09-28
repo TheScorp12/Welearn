@@ -31,7 +31,7 @@ import PlayListVideo from './components/PlayListVideo';
 import InstructorHome from './components/InstructorHome';
 import ModuleUpload from './components/ModuleUpload';
 
-
+console.log(process.env.PRIVATE_KEY);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>

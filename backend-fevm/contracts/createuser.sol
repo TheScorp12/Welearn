@@ -14,17 +14,15 @@ contract createuser{
         uint256 usertype;
         uint256[] courses;
         uint256 noofcourses;
-        bytes32 signature;
     }
     mapping (address => userinfo) public wallets; 
 
-    function saveuser(address wallet, string memory firstname, string memory lastname, string memory email, uint256 usertype, bytes32 signature ) external {
+    function saveuser(address wallet, string memory firstname, string memory lastname, string memory email, uint256 usertype) external {
         wallets[wallet].firstname = firstname;
         wallets[wallet].lastname = lastname;
         wallets[wallet].email = email;
         wallets[wallet].usertype = usertype;
         wallets[wallet].noofcourses = 0;
-        wallets[wallet].signature = signature;
     }
 
     function removeuser(address wallet) external {

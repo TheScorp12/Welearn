@@ -18,3 +18,5 @@ let conformation = await axios.get("https://api.lighthouse.storage/api/lighthous
     }
 })
 }
+
+export default uploadfile;

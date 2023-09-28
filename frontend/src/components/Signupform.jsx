@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import '../css/Signupform.css'
 import Web3 from 'web3'; 
 import { useEffect } from 'react';
+// const createuser = require('../action/createuser')
+import createuser from '../action/createuser'
 
 const Signupform = () => {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
+  let provider;
   var message = "signing message";
   const [formDetails, setFormDetails] = useState({"role": "student"})
   const [isConnected, setIsConnected] = useState(false);
@@ -65,7 +68,6 @@ const Signupform = () => {
   }
 
   const detectCurrentProvider = () => {
-    let provider;
     if (window.ethereum) {
       provider = window.ethereum;
       return provider;
@@ -81,10 +83,11 @@ const Signupform = () => {
     if(isConnected){
       alert("Registration Successful!")
       console.log(formDetails);
-      postData('http://localhost:3001/register', formDetails)
-        .then((data) => {
-          console.log(data); // JSON data parsed by `data.json()` call
-        });
+      // postData('http://localhost:3001/register', formDetails)
+      //   .then((data) => {
+      //     console.log(data); // JSON data parsed by `data.json()` call
+      //   });
+      createuser(formDetails.address,formDetails.firstname,formDetails.lastname,formDetails.email,0);
       setFormDetails({"role": "student"});
       navigate('/login')
     }
@@ -102,7 +105,6 @@ const Signupform = () => {
         setEthBalance(ethBalance);
         const signature = await web3.eth.personal.sign(message, account);
         formDetails.address = account;  
-        formDetails.signature = signature;
         setIsConnected(true);
       }
     } catch(err) {
@@ -173,4 +175,4 @@ const Signupform = () => {
   )
 }
 
-export default Signupform
+export default Signupform;
