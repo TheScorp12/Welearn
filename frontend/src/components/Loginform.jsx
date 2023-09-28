@@ -1,71 +1,103 @@
 import React, { useState } from 'react'
 import Image from '../images/loginimg2.jpg'
 import '../css/Loginform.css'
+import Web3 from 'web3';
 
 import { connect } from 'react-redux'
 import { signIn } from '../action/Welearn'
 import { useNavigate } from 'react-router-dom'
+import json from '../action/createuser.json'
+const {ethers, JsonRpcProvider} = require("ethers")
+const util = require('util');
+let provider;
+let address;
 
+// The path to the contract ABI
+const ABI_FILE_PATH = '../actions/createuser.json';
+// The address from the deployed smart contract
+const DEPLOYED_CONTRACT_ADDRESS = '0x904abFd9D5042b2908f1E5F1cE76a77c7d0394A2';
 
 const Loginform = ({ signIn }) => {
-  let navigate = useNavigate()
-  const [formDetails, setFormDetails] = useState({ email: "", password: "" })
+  let navigate = useNavigate();
+  let message = 'Login Message';
+const [isConnected, setIsConnected] = useState(false);
+const [ethBalance, setEthBalance] = useState("");
 
-  async function postData(url = '', data = {}) {
-    // Default options are marked with *
-    const response = await fetch(url, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(data) // body data type must match "Content-Type" header
-    });
-    return response.json(); // parses JSON response into native JavaScript objects
+const ABI_FILE_PATH = '../actions/createuser.json';
+// The address from the deployed smart contract
+const DEPLOYED_CONTRACT_ADDRESS = '0x904abFd9D5042b2908f1E5F1cE76a77c7d0394A2';
+
+// load ABI from build artifacts
+async function getAbi(){
+  // const data = await fsPromises.readFile(ABI_FILE_PATH, 'utf8');
+  const abi = json.abi;
+  //console.log(abi);
+  return abi;
+}
+
+const detectCurrentProvider = () => {
+  if (window.ethereum) {
+    provider = window.ethereum;
+    return provider;
+  } else if (window.web3) {
+    provider = window.web3.currentProvider;
+    return provider;
+  } else {
+    console.log("Non-ethereum browser detected. You should install Metamask");
   }
+};
 
-  const changeHandler = (event) => {
-    let name = event.target.name;
-    setFormDetails((prev) => {
-      return (
-        {
-          ...prev,
-          [name]: event.target.value
-        }
-      )
-    })
+  async function postData(address) {
+    // Default options are marked with *
+    const PRIVATE_KEY = '0237ff2ad0de9c13520b961f3f5eb834510c5e63d22922e1f1088b43bfa1e656';
+    let provider = new ethers.providers.JsonRpcProvider(`https://api.calibration.node.glif.io/rpc/v1`);
+    let signer = new ethers.Wallet(PRIVATE_KEY, provider);
+    const abi = await getAbi()
+    const usercontract = new ethers.Contract(DEPLOYED_CONTRACT_ADDRESS, abi, signer);
+    let createuser = usercontract.connect(signer);
+    const response = await await createuser.wallets(address);
+    console.log(response);
+    console.log(response.usertype.toNumber());
+    return response; // parses JSON response into native JavaScript objects
   }
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    if (formDetails.email.length <= 0 || formDetails.password.length <= 0) {
-      alert("enter email and password")
-      return
+    try {
+      const currentProvider = detectCurrentProvider();
+      if(currentProvider) {
+        await currentProvider.request({method: 'eth_requestAccounts'});
+        const web3 = new Web3(currentProvider);
+        const userAccount  =await web3.eth.getAccounts();
+        const account = userAccount[0];
+        let ethBalance = await web3.eth.getBalance(account);
+        const signature = await web3.eth.personal.sign(message, account);
+        setEthBalance(ethBalance);
+        address = account;  
+        setIsConnected(true);
+      }
+    } catch(err) {
+      console.log(err);
     }
-    postData('https://Welearn-backend-ci.azurewebsites.net/api/login', formDetails)
+    if(isConnected){
+      postData(address)
       .then((data) => {
-        if (data.user) {
-          const userData = data.user
+        if (data.usertype) {
+          const userData = data;
           signIn(data)
-          if (userData.role === '0') {
+          console.log('works')
+          if (userData.usertype.toString() === '0') {
             navigate('/shome') //student
-          } else if(userData.role === '1') {
+          } else if(userData.usertype.toString() === '1') {
             navigate('/educator') //instructor
-          }else if(userData.role === '2') {
+          }else if(userData.usertype.toString() === '2') {
             navigate('/admin') //admin
           }
         }else if(data.error) {
           alert(data.error)
         }
     });
-    
-
-    setFormDetails({ email: "", password: "" });
+  }
 
   }
 
@@ -87,15 +119,8 @@ const Loginform = ({ signIn }) => {
               <div className="title">Login</div>
               <form action="#" onSubmit={submitHandler}>
                 <div className="input-boxes">
-                  <div className="input-box">
-                    <input onChange={changeHandler} name='email' type="text" placeholder="Enter your email" value={formDetails.email} required />
-                  </div>
-                  <div className="input-box">
-                    <input onChange={changeHandler} name='password' type="password" placeholder="Enter your password" value={formDetails.password} required />
-                  </div>
-                  <div className="text"><a href="#">Forgot password?</a></div>
                   <div className="button input-box">
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Connect wallet to Login!" />
                   </div>
                   <div className="text sign-up-text">Don't have an account? <label htmlFor="flip">Sigup now</label></div>
                 </div>

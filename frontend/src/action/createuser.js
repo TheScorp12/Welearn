@@ -3,7 +3,7 @@
 // require("dotenv").config();
 //var fs = require('fs');
 import json from './createuser.json'
-const {ethers, JsonRpcProvider} = require("ethers")
+const {ethers} = require("ethers")
 const util = require('util');
 // var ethers = require('ethers')
 //const fsPromises = fs.promises;

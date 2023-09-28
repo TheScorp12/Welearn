@@ -3,11 +3,11 @@ import { SIGNIN, SIGNOUT } from './action-types'
 export const signIn = (userDetails) => {
     if (typeof window !== "undefined") {
         localStorage.setItem("jwt", userDetails.token);
-        localStorage.setItem("user", JSON.stringify(userDetails.user));
+        localStorage.setItem("user", JSON.stringify(userDetails));
     }
     return{
     type: SIGNIN,
-    payload: userDetails.user,
+    payload: userDetails,
 }
 }
 

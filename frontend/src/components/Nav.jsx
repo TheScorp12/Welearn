@@ -43,7 +43,7 @@ const Nav = ({ userDetails, signOut }) => {
                                 <ul className="nav-links">
                                     <li>
                                         {
-                                            userDetails.role === 'student' ?
+                                            userDetails.usertype.toString() === '0' ?
                                                 <NavLink className="btn" to={`/shome`}> Home </NavLink> :
                                                 <NavLink className="btn" to={`/educator`}> Home </NavLink>
                                         }
