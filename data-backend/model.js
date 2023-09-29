@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const establishConnection = (cb) => {
   mongoose
     .connect(
-      "mongodb+srv://aasimm20:tipacLCZK75FvFbD@cluster0.hbuylmy.mongodb.net/"
+      "mongodb+srv://"
     )
     .then((res) => {
       console.log("Connection established");
