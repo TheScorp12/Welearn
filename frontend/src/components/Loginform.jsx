@@ -1,59 +1,65 @@
-import React, { useState } from 'react'
-import Image from '../images/loginimg2.jpg'
-import '../css/Loginform.css'
-import Web3 from 'web3';
+import React, { useState } from "react";
+import Image from "../images/loginimg2.jpg";
+import "../css/Loginform.css";
+import Web3 from "web3";
 
-import { connect } from 'react-redux'
-import { signIn } from '../action/Welearn'
-import { useNavigate } from 'react-router-dom'
-import json from '../action/createuser.json'
-const {ethers, JsonRpcProvider} = require("ethers")
-const util = require('util');
+import { connect } from "react-redux";
+import { signIn } from "../action/Welearn";
+import { useNavigate } from "react-router-dom";
+import json from "../action/createuser.json";
+const { ethers, JsonRpcProvider } = require("ethers");
+const util = require("util");
 let provider;
 let address;
 
 // The path to the contract ABI
-const ABI_FILE_PATH = '../actions/createuser.json';
+const ABI_FILE_PATH = "../actions/createuser.json";
 // The address from the deployed smart contract
-const DEPLOYED_CONTRACT_ADDRESS = '0x904abFd9D5042b2908f1E5F1cE76a77c7d0394A2';
+const DEPLOYED_CONTRACT_ADDRESS = "ADD USER CONTRACT ADDRESS HERE";
 
 const Loginform = ({ signIn }) => {
   let navigate = useNavigate();
-  let message = 'Login Message';
-const [isConnected, setIsConnected] = useState(false);
-const [ethBalance, setEthBalance] = useState("");
+  let message = "Login Message";
+  const [isConnected, setIsConnected] = useState(false);
+  const [ethBalance, setEthBalance] = useState("");
 
-const ABI_FILE_PATH = '../actions/createuser.json';
-// The address from the deployed smart contract
-const DEPLOYED_CONTRACT_ADDRESS = '0x904abFd9D5042b2908f1E5F1cE76a77c7d0394A2';
+  const ABI_FILE_PATH = "../actions/createuser.json";
+  // The address from the deployed smart contract
+  const DEPLOYED_CONTRACT_ADDRESS = "ADD USER CONTRACT ADDRESS HERE";
 
-// load ABI from build artifacts
-async function getAbi(){
-  // const data = await fsPromises.readFile(ABI_FILE_PATH, 'utf8');
-  const abi = json.abi;
-  //console.log(abi);
-  return abi;
-}
-
-const detectCurrentProvider = () => {
-  if (window.ethereum) {
-    provider = window.ethereum;
-    return provider;
-  } else if (window.web3) {
-    provider = window.web3.currentProvider;
-    return provider;
-  } else {
-    console.log("Non-ethereum browser detected. You should install Metamask");
+  // load ABI from build artifacts
+  async function getAbi() {
+    // const data = await fsPromises.readFile(ABI_FILE_PATH, 'utf8');
+    const abi = json.abi;
+    //console.log(abi);
+    return abi;
   }
-};
+
+  const detectCurrentProvider = () => {
+    if (window.ethereum) {
+      provider = window.ethereum;
+      return provider;
+    } else if (window.web3) {
+      provider = window.web3.currentProvider;
+      return provider;
+    } else {
+      console.log("Non-ethereum browser detected. You should install Metamask");
+    }
+  };
 
   async function postData(address) {
     // Default options are marked with *
-    const PRIVATE_KEY = '0237ff2ad0de9c13520b961f3f5eb834510c5e63d22922e1f1088b43bfa1e656';
-    let provider = new ethers.providers.JsonRpcProvider(`https://api.calibration.node.glif.io/rpc/v1`);
+    const PRIVATE_KEY = "ADD COURSE CONTRACT ADDRESS HERE";
+    let provider = new ethers.providers.JsonRpcProvider(
+      `https://api.calibration.node.glif.io/rpc/v1`
+    );
     let signer = new ethers.Wallet(PRIVATE_KEY, provider);
-    const abi = await getAbi()
-    const usercontract = new ethers.Contract(DEPLOYED_CONTRACT_ADDRESS, abi, signer);
+    const abi = await getAbi();
+    const usercontract = new ethers.Contract(
+      DEPLOYED_CONTRACT_ADDRESS,
+      abi,
+      signer
+    );
     let createuser = usercontract.connect(signer);
     const response = await await createuser.wallets(address);
     console.log(response);
@@ -65,41 +71,39 @@ const detectCurrentProvider = () => {
     event.preventDefault();
     try {
       const currentProvider = detectCurrentProvider();
-      if(currentProvider) {
-        await currentProvider.request({method: 'eth_requestAccounts'});
+      if (currentProvider) {
+        await currentProvider.request({ method: "eth_requestAccounts" });
         const web3 = new Web3(currentProvider);
-        const userAccount  =await web3.eth.getAccounts();
-        const account = userAccount[0];
+        const userAccount = await web3.eth.getAccounts();
+        const account = userAccount[1];
         let ethBalance = await web3.eth.getBalance(account);
         const signature = await web3.eth.personal.sign(message, account);
         setEthBalance(ethBalance);
-        address = account;  
+        address = account;
         setIsConnected(true);
       }
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
-    if(isConnected){
-      postData(address)
-      .then((data) => {
+    if (isConnected) {
+      postData(address).then((data) => {
         if (data.usertype) {
           const userData = data;
-          signIn(data)
-          console.log('works')
-          if (userData.usertype.toString() === '0') {
-            navigate('/shome') //student
-          } else if(userData.usertype.toString() === '1') {
-            navigate('/educator') //instructor
-          }else if(userData.usertype.toString() === '2') {
-            navigate('/admin') //admin
+          signIn(data);
+          console.log("works");
+          if (userData.usertype.toString() === "0") {
+            navigate("/shome"); //student
+          } else if (userData.usertype.toString() === "1") {
+            navigate("/educator"); //instructor
+          } else if (userData.usertype.toString() === "2") {
+            navigate("/admin"); //admin
           }
-        }else if(data.error) {
-          alert(data.error)
+        } else if (data.error) {
+          alert(data.error);
         }
-    });
-  }
-
-  }
+      });
+    }
+  };
 
   return (
     <div className="lbody">
@@ -108,7 +112,9 @@ const detectCurrentProvider = () => {
           <div className="front">
             <img src={Image} alt="" />
             <div className="text">
-              <span className="text-1">Every new course is a <br /> new journey</span>
+              <span className="text-1">
+                Every new course is a <br /> new journey
+              </span>
               <span className="text-2">Let's get started</span>
             </div>
           </div>
@@ -122,7 +128,10 @@ const detectCurrentProvider = () => {
                   <div className="button input-box">
                     <input type="submit" value="Connect wallet to Login!" />
                   </div>
-                  <div className="text sign-up-text">Don't have an account? <label htmlFor="flip">Sigup now</label></div>
+                  <div className="text sign-up-text">
+                    Don't have an account?{" "}
+                    <label htmlFor="flip">Sigup now</label>
+                  </div>
                 </div>
               </form>
             </div>
@@ -130,20 +139,20 @@ const detectCurrentProvider = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   console.log(state);
   return {
-    userDetails: state.userDetails
-  }
-}
+    userDetails: state.userDetails,
+  };
+};
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   signIn: (userDetails) => {
-    dispatch(signIn(userDetails))
+    dispatch(signIn(userDetails));
   },
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Loginform);

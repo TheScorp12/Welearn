@@ -2,16 +2,15 @@
 // import ethers from '@nomiclabs/hardhat-ethers'
 // require("dotenv").config();
 //var fs = require('fs');
-import json from "./createuser.json";
+import json from "./createcourses.json";
 const { ethers } = require("ethers");
 const util = require("util");
 // var ethers = require('ethers')
 //const fsPromises = fs.promises;
 
 // The path to the contract ABI
-const ABI_FILE_PATH = "/createuser.json";
 // The address from the deployed smart contract
-const DEPLOYED_CONTRACT_ADDRESS = "ADD USER CONTRACT ADDRESS HERE";
+const DEPLOYED_CONTRACT_ADDRESS = "ADD course CONTRACT ADDRESS HERE";
 
 // load ABI from build artifacts
 async function getAbi() {
@@ -21,7 +20,7 @@ async function getAbi() {
   return abi;
 }
 
-async function createuser(address, firstname, lastname, email, usertype) {
+async function getcourse(address, firstname, lastname, email, usertype) {
   // var provider = new ethers.providers.WebSocketProvider("https://api.calibration.node.glif.io/rpc/v1");
   const abi = await getAbi();
 
@@ -41,23 +40,15 @@ async function createuser(address, firstname, lastname, email, usertype) {
     `https://api.calibration.node.glif.io/rpc/v1`
   );
   let signer = new ethers.Wallet(PRIVATE_KEY, provider);
-  const usercontract = new ethers.Contract(
+  const coursescontract = new ethers.Contract(
     DEPLOYED_CONTRACT_ADDRESS,
     abi,
     signer
   );
-  let createuser = usercontract.connect(signer);
-  //let tx = await usercontract.setGreeting('Updated greeting');
-  let tx = await createuser.saveuser(
-    address,
-    firstname,
-    lastname,
-    email,
-    usertype
-  );
+  let getcourse = coursescontract.connect(signer);
+  //let tx = await coursescontract.setGreeting('Updated greeting');
+  let tx = await getcourse.courseid(cid);
   await tx.wait();
-  const getuser = await createuser.wallets(address);
-  console.log(getuser);
 }
 
-export default createuser;
+export default getcourse;

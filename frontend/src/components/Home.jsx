@@ -11,7 +11,7 @@ const Home = () => {
           </video>
           <div className={classes.content}>
             <h1>Welearn</h1>
-            <p>Welcome to the education domain</p>
+            <p>Decentralize Your Learning Journey, Empower Your Future!</p>
             <a href="/signup" ><button className={classes.homeBtn}>Join for free</button></a>
             <a href="/signup" ><button className={classes.homeBtn}>Try Welearn for business</button></a>
           </div>

@@ -72,7 +72,7 @@ const StudentProfile = ({ userDetails })=>{
                         </div>
                         <div className={classes.rowdetails}>
                         <h6>PLACE OF STUDY</h6>
-                        <h6>IIIT SRICITY</h6>
+                        <h6>encode club</h6>
                         </div>
                         <Link  to={`/usprofile`} className={classes.inlinebtn}>update profile</Link> 
                     {/* <img src={Image} alt=""/>

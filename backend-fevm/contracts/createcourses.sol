@@ -6,7 +6,7 @@ pragma solidity >=0.8.9;
    * @custom:dev-run-script file_path
    */
 
-contract courses{
+contract createcourses{
     struct courseinfo{
         address wallet;
         string[] url;
@@ -29,8 +29,9 @@ contract courses{
 
     function changeprice(uint256 newprice, uint256 cid, address wallet) public returns (bool){
         if(courseid[cid].wallet == wallet)
-        {            courseid[cid].price = newprice;
-        return true;
+        { 
+            courseid[cid].price = newprice;
+            return true;
         }
         else {return false;}
     }

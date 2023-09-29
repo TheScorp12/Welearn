@@ -48,15 +48,7 @@ async function createuser(address, firstname, lastname, email, usertype) {
   );
   let createuser = usercontract.connect(signer);
   //let tx = await usercontract.setGreeting('Updated greeting');
-  let tx = await createuser.saveuser(
-    address,
-    firstname,
-    lastname,
-    email,
-    usertype
-  );
-  await tx.wait();
-  const getuser = await createuser.wallets(address);
+  const getuser = await createuser.getcourses(address);
   console.log(getuser);
 }
 

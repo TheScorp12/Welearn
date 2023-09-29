@@ -1,52 +1,50 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import '../css/Signupform.css'
-import Web3 from 'web3'; 
-import { useEffect } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../css/Signupform.css";
+import Web3 from "web3";
+import { useEffect } from "react";
 // const createuser = require('../action/createuser')
-import createuser from '../action/createuser'
+import createuser from "../action/createuser";
 
 const Signupform = () => {
   let navigate = useNavigate();
   let provider;
   var message = "signing message";
-  const [formDetails, setFormDetails] = useState({"role": "student"})
+  const [formDetails, setFormDetails] = useState({ role: 0 });
   const [isConnected, setIsConnected] = useState(false);
   const [ethBalance, setEthBalance] = useState("");
   const changeHandler = (event) => {
     let name = event.target.name;
     setFormDetails((prev) => {
-      return (
-        {
-          ...prev,
-          [name]: event.target.value
-        }
-      )
-    })
-  }
+      return {
+        ...prev,
+        [name]: event.target.value,
+      };
+    });
+  };
 
   const formValidation = () => {
-    if(formDetails.lastname ) {
-      formDetails.lname = formDetails.lastname.trim()
+    if (formDetails.lastname) {
+      formDetails.lname = formDetails.lastname.trim();
     }
 
     if (formDetails.firstname && formDetails.email) {
-      formDetails.fname = formDetails.firstname.trim()
-      formDetails.email = formDetails.email.trim()
+      formDetails.fname = formDetails.firstname.trim();
+      formDetails.email = formDetails.email.trim();
       if (formDetails.fname.length < 3) {
-        alert("First name must of size atleast size 3")
+        alert("First name must of size atleast size 3");
         return false;
       }
       if (!isNaN(formDetails.fname.charAt(0))) {
-        alert("name must not start with number")
+        alert("name must not start with number");
         return false;
       }
       return true;
     } else {
-      console.log('hello');
+      console.log("hello");
       return false;
     }
-  }
+  };
 
   const detectCurrentProvider = () => {
     if (window.ethereum) {
@@ -59,39 +57,45 @@ const Signupform = () => {
       console.log("Non-ethereum browser detected. You should install Metamask");
     }
   };
-  
+
   useEffect(() => {
-    if(isConnected){
-      alert("Registration Successful!")
+    if (isConnected) {
+      alert("Registration Successful!");
       console.log(formDetails);
       // postData('http://localhost:3001/register', formDetails)
       //   .then((data) => {
       //     console.log(data); // JSON data parsed by `data.json()` call
       //   });
-      createuser(formDetails.address,formDetails.firstname,formDetails.lastname,formDetails.email,0);
-      setFormDetails({"role": "student"});
-      navigate('/login')
+      createuser(
+        formDetails.address,
+        formDetails.firstname,
+        formDetails.lastname,
+        formDetails.email,
+        formDetails.role
+      );
+      setFormDetails({ role: 0 });
+      navigate("/login");
     }
-  }, [isConnected])
+  }, [isConnected]);
 
-  const onConnect = async() => {
+  const onConnect = async () => {
     try {
       const currentProvider = detectCurrentProvider();
-      if(currentProvider) {
-        await currentProvider.request({method: 'eth_requestAccounts'});
+      if (currentProvider) {
+        await currentProvider.request({ method: "eth_requestAccounts" });
         const web3 = new Web3(currentProvider);
-        const userAccount  =await web3.eth.getAccounts();
-        const account = userAccount[0];
+        const userAccount = await web3.eth.getAccounts();
+        const account = userAccount[1];
         let ethBalance = await web3.eth.getBalance(account);
         setEthBalance(ethBalance);
         const signature = await web3.eth.personal.sign(message, account);
-        formDetails.address = account;  
+        formDetails.address = account;
         setIsConnected(true);
       }
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -100,11 +104,11 @@ const Signupform = () => {
       return false;
     }
     onConnect();
-  }
+  };
 
   return (
     <>
-      <div className='signuppage-body'>
+      <div className="signuppage-body">
         <div className="ccontainer">
           <div className="title">Registration</div>
           <div className="ccontent">
@@ -112,28 +116,70 @@ const Signupform = () => {
               <div className="user-details">
                 <div className="input-box">
                   <span className="details">First Name</span>
-                  <input onChange={changeHandler} name="firstname" type="text" value={formDetails.firstname || ""} placeholder="Enter your name" required/>
+                  <input
+                    onChange={changeHandler}
+                    name="firstname"
+                    type="text"
+                    value={formDetails.firstname || ""}
+                    placeholder="Enter your name"
+                    required
+                  />
                 </div>
                 <div className="input-box">
                   <span className="details">Last name</span>
-                  <input onChange={changeHandler} name='lastname' type="text" value={formDetails.lastname || ""} placeholder="Enter your Last name" />
+                  <input
+                    onChange={changeHandler}
+                    name="lastname"
+                    type="text"
+                    value={formDetails.lastname || ""}
+                    placeholder="Enter your Last name"
+                  />
                 </div>
                 <div className="input-box">
                   <span className="details">Email</span>
-                  <input onChange={changeHandler} name='email' type="email" value={formDetails.email || ""} placeholder="Enter your email" required />
+                  <input
+                    onChange={changeHandler}
+                    name="email"
+                    type="email"
+                    value={formDetails.email || ""}
+                    placeholder="Enter your email"
+                    required
+                  />
                 </div>
               </div>
               <div className="gender-details">
-                <input id="dot-4" onChange={changeHandler} type="radio" name="role"  value="student" checked={formDetails.role === 'student'} />
-                <input id="dot-5" onChange={changeHandler} type="radio" name="role"  value="educator" checked={formDetails.role === 'educator'} />
+                <input
+                  id="dot-4"
+                  onChange={(e) => {
+                    setFormDetails((prev) => {
+                      return { ...prev, role: 0 };
+                    });
+                  }}
+                  type="radio"
+                  name="role"
+                  value="student"
+                  checked={formDetails.role === 0}
+                />
+                <input
+                  id="dot-5"
+                  onChange={(e) => {
+                    setFormDetails((prev) => {
+                      return { ...prev, role: 1 };
+                    });
+                  }}
+                  type="radio"
+                  name="role"
+                  value="educator"
+                  checked={formDetails.role === 1}
+                />
                 {/* <input onChange={changeHandler} type="radio" name="gender" id="dot-3" value="others" checked={formDetails.gender === 'others'} /> */}
                 <span className="gender-title">Select role</span>
                 <div className="category">
-                  <label   htmlFor="dot-4">
+                  <label htmlFor="dot-4">
                     <span className="dot four"></span>
                     <span className="gender">Student</span>
-                  </label> 
-                  <label  htmlFor="dot-5">
+                  </label>
+                  <label htmlFor="dot-5">
                     <span className="dot five"></span>
                     <span className="gender">Educator</span>
                   </label>
@@ -143,8 +189,7 @@ const Signupform = () => {
                   </label> */}
                 </div>
               </div>
-              <div>
-          </div>
+              <div></div>
               <div className="button">
                 <input type="submit" value="Register" />
               </div>
@@ -153,7 +198,7 @@ const Signupform = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Signupform;

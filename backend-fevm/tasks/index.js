@@ -10,13 +10,13 @@
 // exports.makeDealProposal = require("./deal-client/make-deal-proposal")
 // exports.getDealProposal = require("./deal-client/get-deal-proposal")
 // exports.getDealStatus = require("./deal-client/get-deal-status")
-exports.createuser = require("./createuser")
+//exports.createuser = require("./createuser")
 const app  = require('express')()
 const multer = require('multer')
 //const fileHandler = require('./uploadfile');
 // const createuser = require('./createuser');
 
-createuser('0xC9F58a37fEa347683edBdD55d4Ca9CC51797fd84',"Mohammed","Aasim","mohdaasimc@gmail.com",1);
+//createuser('0xC9F58a37fEa347683edBdD55d4Ca9CC51797fd84',"Mohammed","Aasim","mohdaasimc@gmail.com",1);
 
 const upload = multer({})
 
